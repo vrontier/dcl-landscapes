@@ -134,7 +134,7 @@
     "buffers" : [
         {
             "byteLength" : 23904,
-            "uri" : "bridge_0004_fork.bin"
+            "uri" : "bridge_0004_fork_v01.bin"
         }
     ],
     "materials" : [
@@ -153,7 +153,7 @@
         },
         {
             "alphaMode" : "BLEND",
-            "name" : "edge_color8087112255.008",
+            "name" : "edge_color8087112255.009",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.6400000190734865,
@@ -165,7 +165,7 @@
             }
         },
         {
-            "name" : "material_4.008",
+            "name" : "material_4.009",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.3137255000133141,
@@ -179,7 +179,7 @@
     ],
     "meshes" : [
         {
-            "name" : "ID15.009",
+            "name" : "ID15.012",
             "primitives" : [
                 {
                     "attributes" : {
@@ -192,7 +192,7 @@
             ]
         },
         {
-            "name" : "ID15.010",
+            "name" : "ID15.011",
             "primitives" : [
                 {
                     "attributes" : {
@@ -207,7 +207,7 @@
     ],
     "nodes" : [
         {
-            "mesh" : 0,
+            "mesh" : 1,
             "name" : "massing",
             "translation" : [
                 -314.960693359375,
@@ -216,7 +216,7 @@
             ]
         },
         {
-            "mesh" : 1,
+            "mesh" : 0,
             "name" : "massing_collider",
             "translation" : [
                 -314.960693359375,

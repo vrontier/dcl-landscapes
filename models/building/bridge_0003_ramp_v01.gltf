@@ -134,13 +134,13 @@
     "buffers" : [
         {
             "byteLength" : 26976,
-            "uri" : "bridge_0003_ramp.bin"
+            "uri" : "bridge_0003_ramp_v01.bin"
         }
     ],
     "materials" : [
         {
             "alphaMode" : "BLEND",
-            "name" : "edge_color000255.007",
+            "name" : "edge_color000255.009",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.6400000190734865,
@@ -153,7 +153,7 @@
         },
         {
             "alphaMode" : "BLEND",
-            "name" : "edge_color8087112255.007",
+            "name" : "edge_color8087112255.010",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.6400000190734865,
@@ -165,7 +165,7 @@
             }
         },
         {
-            "name" : "material_4.007",
+            "name" : "material_4.010",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.3137255000133141,
@@ -179,7 +179,7 @@
     ],
     "meshes" : [
         {
-            "name" : "ID4.008",
+            "name" : "ID15.014",
             "primitives" : [
                 {
                     "attributes" : {
@@ -192,7 +192,7 @@
             ]
         },
         {
-            "name" : "ID4.007",
+            "name" : "ID15.013",
             "primitives" : [
                 {
                     "attributes" : {
