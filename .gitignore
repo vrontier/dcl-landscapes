@@ -1,0 +1,13 @@
+/.idea
+/bin
+/node_modules
+!/src/*
+!/src/dcl-landscapes/*
+.dclignore
+Dockerfile
+LICENSE
+package.json
+package-lock.json
+README.md
+!scene.json
+tsconfig.json
