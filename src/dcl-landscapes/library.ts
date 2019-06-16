@@ -17,31 +17,32 @@ interface EntityRepositoryItems extends Array<EntityRepositoryItem>{}
 // Repository class
 export class EntityRepository {
     private _dataSet: EntityRepositoryItems = [
-        { modelId: 24, fileName: 'bldg_0001_inner_corner_v01.gltf' },
-        { modelId: 32, fileName: 'bldg_0001_innercorner_v01.gltf' },
-        { modelId: 34, fileName: 'bldg_0001_innercorner_v02.gltf' },
-        { modelId: 38, fileName: 'bldg_0001_innercorner_v03.gltf' },
-        { modelId: 26, fileName: 'bldg_0002_outer_corner_v01.gltf' },
-        { modelId: 30, fileName: 'bldg_0002_outercorner_v01.gltf' },
-        { modelId: 36, fileName: 'bldg_0002_outercorner_v02.gltf' },
-        { modelId: 48, fileName: 'bldg_0002_outercorner_v03.gltf' },
-        { modelId: 1, fileName: 'bldg_0003_length_v01.gltf' },
-        { modelId: 28, fileName: 'bldg_0003_length_v02.gltf' },
-        { modelId: 17, fileName: 'bridge_0001_center_v01.gltf' },
-        { modelId: 19, fileName: 'bridge_0001_center_v02.gltf' },
-        { modelId: 21, fileName: 'bridge_0002_length_v01.gltf' },
-        { modelId: 11, fileName: 'bridge_0003_ramp_v01.gltf' },
-        { modelId: 6, fileName: 'bridge_0004_fork_v01.gltf' },
-        { modelId: 4, fileName: 'bridge_0005_turn_v01.gltf' },
-        { modelId: 42, fileName: 'ramp_0003_spiral_v03.gltf' },
-        { modelId: 44, fileName: 'ramp_0003_spiral_v04.gltf' },
-        { modelId: 46, fileName: 'ramp_0004_test_v01.gltf' },
-        { modelId: 50, fileName: 'townhouse_0001_coffin_v03.gltf' },
-        { modelId: 39, fileName: 'townhouse_0003_v01.gltf' },
-        { modelId: 7, fileName: 'tunnel_0001_center_v01.gltf' },
-        { modelId: 13, fileName: 'tunnel_0002_length_v01.gltf' },
-        { modelId: 2, fileName: 'tunnel_0003_ramp_v01.gltf' },
-        { modelId: 12, fileName: 'tunnel_0004_fork_v01.gltf' },
+        { modelId: 24, fileName: '/building/bldg_0001_inner_corner_v01.gltf' },
+        { modelId: 32, fileName: '/building/bldg_0001_innercorner_v01.gltf' },
+        { modelId: 34, fileName: '/building/bldg_0001_innercorner_v02.gltf' },
+        { modelId: 38, fileName: '/building/bldg_0001_innercorner_v03.gltf' },
+        { modelId: 26, fileName: '/building/bldg_0002_outer_corner_v01.gltf' },
+        { modelId: 30, fileName: '/building/bldg_0002_outercorner_v01.gltf' },
+        { modelId: 36, fileName: '/building/bldg_0002_outercorner_v02.gltf' },
+        { modelId: 48, fileName: '/building/bldg_0002_outercorner_v03.gltf' },
+        { modelId: 1, fileName: '/building/bldg_0003_length_v01.gltf' },
+        { modelId: 28, fileName: '/building/bldg_0003_length_v02.gltf' },
+        { modelId: 17, fileName: '/building/bridge_0001_center_v01.gltf' },
+        { modelId: 19, fileName: '/building/bridge_0001_center_v02.gltf' },
+        { modelId: 21, fileName: '/building/bridge_0002_length_v01.gltf' },
+        { modelId: 11, fileName: '/building/bridge_0003_ramp_v01.gltf' },
+        { modelId: 6, fileName: '/building/bridge_0004_fork_v01.gltf' },
+        { modelId: 4, fileName: '/building/bridge_0005_turn_v01.gltf' },
+        { modelId: 42, fileName: '/building/ramp_0003_spiral_v03.gltf' },
+        { modelId: 44, fileName: '/building/ramp_0003_spiral_v04.gltf' },
+        { modelId: 46, fileName: '/building/ramp_0004_test_v01.gltf' },
+        { modelId: 50, fileName: '/building/townhouse_0001_coffin_v03.gltf' },
+        { modelId: 39, fileName: '/building/townhouse_0003_v01.gltf' },
+        { modelId: 7, fileName: '/building/tunnel_0001_center_v01.gltf' },
+        { modelId: 13, fileName: '/building/tunnel_0002_length_v01.gltf' },
+        { modelId: 2, fileName: '/building/tunnel_0003_ramp_v01.gltf' },
+        { modelId: 12, fileName: '/building/tunnel_0004_fork_v01.gltf' },
+        { modelId: 51, fileName: '/nature/cloud_0001.gltf' },
     ]
 
     public modelFileName(modelId: number): string {
@@ -58,7 +59,8 @@ interface EntityPositionInLayerItem {
     id: number
     entityId: number
     position: Vector3
-    rotation: Quaternion
+    rotation: Quaternion,
+    scale: Vector3
 }
 
 // Interface for element index in raw data
@@ -67,28 +69,31 @@ interface RawDataElementIndex {
     entityId: number
     elevationInLayer: number
     rotation: number
+    scale: number
 }
 
 // Class containing DCL LANDSCAPES layer data
 export class Layer {
-    private _rawDatapoint: RawDataElementIndex = {position: 0, entityId: 1, elevationInLayer: 2, rotation: 3}
-    private _rawDatapointCount: number = 4
+    private _rawDatapoint: RawDataElementIndex = {position: 0, entityId: 1, elevationInLayer: 2, rotation: 3, scale: 4}
+    private _rawDatapointCountMinimum: number = 2 // minimum raw data be the layer cell coordinate (x,z) and model id
     private _name: string
     private _rawData: string
     private _position: Vector3
-    private _cellSize: number
     private _pivotPosition: Vector3
+    private _cellSize: number
+    private _scale: Vector3
     private _entityPositionInLayer: EntityPositionInLayerItem[]
 
-    constructor(name: string, rawData: string, position: Vector3, pivotPosition: Vector3, cellSize: number) {
+    constructor(name: string, rawData: string, position: Vector3, pivotPosition: Vector3, cellSize: number, scale: Vector3) {
         this._name = name
         this._rawData = rawData
         this._position = position
         this._pivotPosition = pivotPosition
         this._cellSize = cellSize
-        this._entityPositionInLayer = []
+        this._scale = scale
 
         // Parse raw data into layer structure
+        this._entityPositionInLayer = []
         this.parseRawData(rawData)
     }
 
@@ -127,6 +132,13 @@ export class Layer {
         return this._cellSize
     }
 
+    set scale(newScale: Vector3) {
+        this._scale = newScale
+    }
+    get scale(): Vector3 {
+        return this._scale
+    }
+
     get entityPosition(): EntityPositionInLayerItem[] {
         return this._entityPositionInLayer
     }
@@ -136,37 +148,102 @@ export class Layer {
         let rawDataArray: string[] = toProcess.split("\n")
         for (let entry in rawDataArray) {
             let rawDataEntryArray: string[] = rawDataArray[entry].split(" ")
-            if (rawDataEntryArray.length < this._rawDatapointCount) {
-                log("Warning: entry '" + rawDataArray[entry] + "' does not contain " + this._rawDatapoint + " data points!")
+            if (rawDataEntryArray.length < this._rawDatapointCountMinimum) {
+                log("Warning: entry '" + rawDataArray[entry] + "' does not contain the min. set data points " +
+                    "which are layer cell coordinate (x,z) and the model id!")
             } else {
                 // Parse raw data into structure
-                let entityRotation: Quaternion = new Quaternion(0, 0, 0, 0)
-                if ((rawDataEntryArray[this._rawDatapoint['rotation']].split(",").length == 3)) {
-                    entityRotation = Quaternion.Euler(
-                        parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[0]),
-                        parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[1]),
-                        parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[2])
-                    )
-                } else if ((rawDataEntryArray[this._rawDatapoint['rotation']].split(",").length == 4)) {
-                    entityRotation = new Quaternion(
-                        parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[0]),
-                        parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[1]),
-                        parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[2]),
-                        parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[3])
+
+                // *****************************************************************************************************
+                // * Position 1: relative cell coordinates (x,z)
+                // *****************************************************************************************************
+                // Default relative x and z position is the upper left cell (0,0) of the layer which in meter
+                // is the cell length and width divided by two and the y coordinate of the layer's position.
+                // Relative elevation y is defaulted to 0 meaning 0m to add to the elevation of the layer
+                let entityCellCoordinateInLayer: Vector3 = new Vector3((this._cellSize / 2), 0, (this._cellSize / 2))
+                if (rawDataEntryArray[this._rawDatapoint['position']].split(",").length == 2) {
+                    entityCellCoordinateInLayer = new Vector3(
+                        // relative x coordinate of the cell
+                        parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[0]),
+                        // relative y to layer elevation in meter is 0, may be set if elevation is present in raw data
+                        0,
+                        // relative z coordinate of the cell
+                        parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[1])
                     )
                 }
+
+                // *****************************************************************************************************
+                // * Position 2: entity reference id
+                // *****************************************************************************************************
+                // Entity id is the reference to the gltf model, sound or native DCL entity, defaults to a cube (id 0)
+                // of dimension 1 meter by 1 meter by 1 meter
+                let entityId: number = 0
+                if (parseInt(rawDataEntryArray[this._rawDatapoint['entityId']]) > 0) {
+                    entityId = parseInt(rawDataEntryArray[this._rawDatapoint['entityId']])
+                }
+
+                // *****************************************************************************************************
+                // * Position 3: (optional) elevation
+                // *****************************************************************************************************
+                if (rawDataEntryArray.length >= 3) {
+                    entityCellCoordinateInLayer.y = parseInt(rawDataEntryArray[this._rawDatapoint['elevationInLayer']])
+                }
+
+                // *****************************************************************************************************
+                // * Position 4: (optional) rotation
+                // *****************************************************************************************************
+                // Check out if the raw data has 3 elements (Euler) or 4 elements (Quaternion) and do the
+                // necessary transformation from Euler to Quaternion.
+                // In case something else or no data has been provided, set rotation to (0, 0, 0, 0).
+                let entityRotation: Quaternion = new Quaternion(0, 0, 0, 0)
+                if (rawDataEntryArray.length >= 4) {
+                    if ((rawDataEntryArray[this._rawDatapoint['rotation']].split(",").length == 3)) {
+                        entityRotation = Quaternion.Euler(
+                            parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[0]),
+                            parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[1]),
+                            parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[2])
+                        )
+                    } else if ((rawDataEntryArray[this._rawDatapoint['rotation']].split(",").length == 4)) {
+                        entityRotation = new Quaternion(
+                            parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[0]),
+                            parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[1]),
+                            parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[2]),
+                            parseInt(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[3])
+                        )
+                    }
+                }
+
+                // *****************************************************************************************************
+                // * Position 5: (optional) scale
+                // *****************************************************************************************************
+                let entityScale: Vector3 = new Vector3(1, 1, 1)
+                if (rawDataEntryArray.length >= 5) {
+                    if ((rawDataEntryArray[this._rawDatapoint['scale']].split(",").length == 3)) {
+                        entityScale = new Vector3(
+                            parseInt(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[0]),
+                            parseInt(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[1]),
+                            parseInt(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[2])
+                        )
+                    }
+                }
+
+                // Bring it all together in the layer's entity array
                 this._entityPositionInLayer.push(
                     {
+                        // Array index
                         id: arrayId,
-                        entityId: parseInt(rawDataEntryArray[this._rawDatapoint['entityId']]),
-                        position: new Vector3(
-                            parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[0]),
-                            parseInt(rawDataEntryArray[this._rawDatapoint['elevationInLayer']]),
-                            parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[1])
-                        ),
-                        rotation: entityRotation
+                        // Unique id referencing the entity to place
+                        entityId: entityId,
+                        // Relative position of the entity in the layer's position
+                        position: entityCellCoordinateInLayer,
+                        // Relative rotation of the entity in in relation to the layer's absolute rotation
+                        rotation: entityRotation,
+                        // Relative scale
+                        scale: entityScale
                     }
                 )
+
+                // Increment array index
                 arrayId++
             }
         }
@@ -181,7 +258,8 @@ export function placeLayer(layer: Layer){
 
     for (let entity of layer.entityPosition) {
         let modelFileName: string = 'models/building/' + entityRepository.modelFileName(entity.entityId)
-        if (logging) log("Positioning model id #" + entity.entityId + " '" + modelFileName + "' at (" + (entity.position.x * 16 + 8) + ", " + entity.position.y + ", " + (entity.position.x * 16 + 8) +")")
+        if (logging) log("Positioning model id #" + entity.entityId + " '" + modelFileName + "' at (" +
+            (entity.position.x * 16 + 8) + ", " + entity.position.y + ", " + (entity.position.x * 16 + 8) +")")
 
         let building: Entity = new Entity()
         building.addComponent(new GLTFShape(modelFileName))
