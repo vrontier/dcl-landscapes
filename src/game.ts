@@ -58,8 +58,9 @@ let layerRawData: string =
 let layerPosition: Vector3 = new Vector3(0, 0 ,0)
 let layerPivotPosition: Vector3 = new Vector3(0, 0, 0)
 let layerCellSize: number = 16
+let layerScale: Vector3 = new Vector3(1, 1 ,1)
 
-let layer = new Layer(layerName, layerRawData, layerPivotPosition, layerPivotPosition, layerCellSize)
+let layer = new Layer(layerName, layerRawData, layerPosition, layerPivotPosition, layerCellSize, layerScale)
 placeLayer(layer)
 
 
