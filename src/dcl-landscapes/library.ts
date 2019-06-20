@@ -7,62 +7,9 @@
 // Master control switch for logging
 let logging: boolean = true
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// DCL LANDSCAPES model repository
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Model directory
+// Model repository
 let modelDirectory: string = "models/"
-
-// Model repository item
-interface EntityRepositoryItem {
-    modelId: number
-    fileName: string
-}
-interface EntityRepositoryItems extends Array<EntityRepositoryItem>{}
-
-// Repository class
-export class EntityRepository {
-    private _dataSet: EntityRepositoryItems = [
-        { modelId: 24, fileName: 'building/bldg_0001_inner_corner_v01.gltf' },
-        { modelId: 32, fileName: 'building/bldg_0001_innercorner_v01.gltf' },
-        { modelId: 34, fileName: 'building/bldg_0001_innercorner_v02.gltf' },
-        { modelId: 38, fileName: 'building/bldg_0001_innercorner_v03.gltf' },
-        { modelId: 26, fileName: 'building/bldg_0002_outer_corner_v01.gltf' },
-        { modelId: 30, fileName: 'building/bldg_0002_outercorner_v01.gltf' },
-        { modelId: 36, fileName: 'building/bldg_0002_outercorner_v02.gltf' },
-        { modelId: 48, fileName: 'building/bldg_0002_outercorner_v03.gltf' },
-        { modelId: 1, fileName: 'building/bldg_0003_length_v01.gltf' },
-        { modelId: 28, fileName: 'building/bldg_0003_length_v02.gltf' },
-        { modelId: 17, fileName: 'building/bridge_0001_center_v01.gltf' },
-        { modelId: 19, fileName: 'building/bridge_0001_center_v02.gltf' },
-        { modelId: 21, fileName: 'building/bridge_0002_length_v01.gltf' },
-        { modelId: 11, fileName: 'building/bridge_0003_ramp_v01.gltf' },
-        { modelId: 6, fileName: 'building/bridge_0004_fork_v01.gltf' },
-        { modelId: 4, fileName: 'building/bridge_0005_turn_v01.gltf' },
-        { modelId: 42, fileName: 'building/ramp_0003_spiral_v03.gltf' },
-        { modelId: 44, fileName: 'building/ramp_0003_spiral_v04.gltf' },
-        { modelId: 46, fileName: 'building/ramp_0004_test_v01.gltf' },
-        { modelId: 50, fileName: 'building/townhouse_0001_coffin_v03.gltf' },
-        { modelId: 39, fileName: 'building/townhouse_0003_v01.gltf' },
-        { modelId: 7, fileName: 'building/tunnel_0001_center_v01.gltf' },
-        { modelId: 13, fileName: 'building/tunnel_0002_length_v01.gltf' },
-        { modelId: 2, fileName: 'building/tunnel_0003_ramp_v01.gltf' },
-        { modelId: 12, fileName: 'building/tunnel_0004_fork_v01.gltf' },
-        { modelId: 100, fileName: 'nature/cloud_0001.gltf' },
-        { modelId: 101, fileName: 'nature/tree_0001.gltf' }
-    ]
-
-    public modelFileName(modelId: number): string {
-        for (let entry of this._dataSet) {
-            if (entry.modelId == modelId)
-                return entry.fileName
-        }
-
-    }
-}
+import {EntityRepository} from "./modelRepository"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

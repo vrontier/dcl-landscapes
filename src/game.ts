@@ -233,9 +233,9 @@ let ilesModularArchitecture = new Layer(
     "ile's architecture modules",
     layerRawData,
     new Vector3(4, 0 ,4),
-    Quaternion.Euler(0, 0, 0),
+    Quaternion.Euler(0, 30, 0),
     16,
-    new Vector3(0.05, 0.05 ,0.05)
+    new Vector3(0.05, 0.05 ,0.5)
 )
 placeLayer(ilesModularArchitecture)
 
@@ -289,16 +289,16 @@ layerRawData =
     "4,3 101 0 0,0,0 .02,.02,.02\n" +
     "4,4 101 0 0,0,0 .02,.02,.02\n" +
     "4,5 101 0 0,0,0 .02,.02,.02\n" +
-    "4,6 101 0 0,0,0 .02,.02,.02\n" +
+    "4,6 24 0 0,0,0 .02,.02,.02\n" +
     "4,7 101 0 0,0,0 .02,.02,.02\n" +
     "4,8 101 0 0,0,0 .02,.02,.02\n" +
     "4,9 101 0 0,0,0 .02,.02,.02\n" +
     "5,0 101 0 0,0,0 .02,.02,.02\n" +
-    "5,1 101 0 0,0,0 .02,.02,.02\n" +
+    "5,1 50 0 0,0,0 .02,.02,.02\n" +
     "5,2 101 0 0,0,0 .02,.02,.02\n" +
     "5,3 101 0 0,0,0 .02,.02,.02\n" +
     "5,4 101 0 0,0,0 .02,.02,.02\n" +
-    "5,5 101 0 0,0,0 .02,.02,.02\n" +
+    "5,5 50 0 0,0,0 .02,.02,.02\n" +
     "5,6 101 0 0,0,0 .02,.02,.02\n" +
     "5,7 101 0 0,0,0 .02,.02,.02\n" +
     "5,8 101 0 0,0,0 .02,.02,.02\n" +
@@ -308,10 +308,10 @@ layerRawData =
 let theForest = new Layer(
     "The forest",
     layerRawData,
-    new Vector3(1, 0 ,1),
+    new Vector3(1, 0,1),
     Quaternion.Euler(0, 0, 0),
-    8,
-    new Vector3(0.05, 0.05 ,0.05)
+    12,
+    new Vector3(0.05, 0.05 ,0.5)
 )
 landscapeLayer(theForest, new Vector3(0.2, 0, 0.4), new Vector3(0,1,0))
 placeLayer(theForest)
