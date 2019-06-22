@@ -233,9 +233,10 @@ let ilesModularArchitecture = new Layer(
     "ile's architecture modules",
     layerRawData,
     new Vector3(4, 0 ,4),
-    Quaternion.Euler(0, 30, 0),
+    Quaternion.Euler(0, 0, 0),
     16,
-    new Vector3(0.05, 0.05 ,0.5)
+    new Vector3(0.05, 0.05 ,0.05),
+    true
 )
 placeLayer(ilesModularArchitecture)
 
@@ -311,7 +312,8 @@ let theForest = new Layer(
     new Vector3(1, 0,1),
     Quaternion.Euler(0, 0, 0),
     12,
-    new Vector3(0.05, 0.05 ,0.5)
+    new Vector3(0.05, 0.05 ,0.5),
+    true
 )
 landscapeLayer(theForest, new Vector3(0.2, 0, 0.4), new Vector3(0,1,0))
 placeLayer(theForest)

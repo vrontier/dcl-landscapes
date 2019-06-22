@@ -45,14 +45,16 @@ export class Layer {
     private _cellSize: number
     private _scale: Vector3
     private _entityPositionInLayer: EntityPositionInLayerItem[]
+    private _displayLabels: boolean
 
-    constructor(name: string, rawData: string, position: Vector3, rotation: Quaternion, cellSize: number, scale: Vector3) {
+    constructor(name: string, rawData: string, position: Vector3, rotation: Quaternion, cellSize: number, scale: Vector3, labels: boolean) {
         this._name = name
         this._rawData = rawData
         this._position = position
         this._rotation = rotation
         this._cellSize = cellSize
         this._scale = scale
+        this._displayLabels = labels
 
         // Parse raw data into layer structure
         this._entityPositionInLayer = []
@@ -101,6 +103,13 @@ export class Layer {
         return this._scale
     }
 
+    set displayLabels(newLabels: boolean) {
+        this._displayLabels = newLabels
+    }
+    get displayLabels(): boolean {
+        return this._displayLabels
+    }
+
     get entityArray(): EntityPositionInLayerItem[] {
         return this._entityPositionInLayer
     }
@@ -125,106 +134,107 @@ export class Layer {
         let arrayId: number = 0
         let rawDataArray: string[] = toProcess.split("\n")
         for (let entry in rawDataArray) {
-            let rawDataEntryArray: string[] = rawDataArray[entry].split(" ")
-            if (rawDataEntryArray.length < this._rawDatapointCountMinimum) {
-                log("Warning: entry '" + rawDataArray[entry] + "' does not contain the min. set data points " +
-                    "which are layer cell coordinate (x,z) and the model id!")
-            } else {
-                // Parse raw data into structure
-                if (logging) log(rawDataEntryArray.length)
+            // Ignore commented lines
+            if ( !((rawDataArray[entry].substring(0,1)).match('#')) ) {
+                let rawDataEntryArray: string[] = rawDataArray[entry].split(" ")
+                if (rawDataEntryArray.length < this._rawDatapointCountMinimum) {
+                    log("Warning: entry '" + rawDataArray[entry] + "' does not contain the min. set data points " +
+                        "which are layer cell coordinate (x,z) and the model id!")
+                } else {
+                    // Parse raw data into structure
 
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // Position 1: relative cell coordinates (x,z)
-                //
-                // Default relative x and z position is the upper left cell (0,0) of the layer which in meter
-                // is the cell length and width divided by two and the y coordinate of the layer's position.
-                // Relative elevation y is defaulted to 0 meaning 0m to add to the elevation of the layer
-                let entityCellCoordinateInLayer: Vector3 = new Vector3((this._cellSize / 2), 0, (this._cellSize / 2))
-                if (rawDataEntryArray[this._rawDatapoint['position']].split(",").length == 2) {
-                    entityCellCoordinateInLayer = new Vector3(
-                        // relative x coordinate of the cell
-                        parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[0]),
-                        // relative y to layer elevation in meter is 0, may be set if elevation is present in raw data
-                        0,
-                        // relative z coordinate of the cell
-                        parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[1])
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // Position 1: relative cell coordinates (x,z)
+                    //
+                    // Default relative x and z position is the upper left cell (0,0) of the layer which in meter
+                    // is the cell length and width divided by two and the y coordinate of the layer's position.
+                    // Relative elevation y is defaulted to 0 meaning 0m to add to the elevation of the layer
+                    let entityCellCoordinateInLayer: Vector3 = new Vector3((this._cellSize / 2), 0, (this._cellSize / 2))
+                    if (rawDataEntryArray[this._rawDatapoint['position']].split(",").length == 2) {
+                        entityCellCoordinateInLayer = new Vector3(
+                            // relative x coordinate of the cell
+                            parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[0]),
+                            // relative y to layer elevation in meter is 0, may be set if elevation is present in raw data
+                            0,
+                            // relative z coordinate of the cell
+                            parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[1])
+                        )
+                    }
+
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // Position 2: entity reference id
+                    //
+                    // Entity id is the reference to the gltf model, sound or native DCL entity, defaults to a cube (id 0)
+                    // of dimension 1 meter by 1 meter by 1 meter
+                    let entityId: number = 0
+                    if (parseInt(rawDataEntryArray[this._rawDatapoint['entityId']]) > 0) {
+                        entityId = parseInt(rawDataEntryArray[this._rawDatapoint['entityId']])
+                    }
+
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // Position 3: (optional) elevation
+                    //
+                    // Elevation of the entity relative to the layer's elevation from ground in meters
+                    if (rawDataEntryArray.length >= 3) {
+                        entityCellCoordinateInLayer.y = parseFloat(rawDataEntryArray[this._rawDatapoint['elevationInLayer']])
+                    }
+
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // Position 4: (optional) rotation
+                    //
+                    // Check out if the raw data has 3 elements (Euler) or 4 elements (Quaternion) and do the
+                    // necessary transformation from Euler to Quaternion.
+                    // In case something else or no data has been provided, set rotation to (0, 0, 0, 0).
+                    let entityRotation: Quaternion = new Quaternion(0, 0, 0, 0)
+                    if (rawDataEntryArray.length >= 4) {
+                        if ((rawDataEntryArray[this._rawDatapoint['rotation']].split(",").length == 3)) {
+                            entityRotation = Quaternion.Euler(
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[0]),
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[1]),
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[2])
+                            )
+                        } else if ((rawDataEntryArray[this._rawDatapoint['rotation']].split(",").length == 4)) {
+                            entityRotation = new Quaternion(
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[0]),
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[1]),
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[2]),
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[3])
+                            )
+                        }
+                    }
+
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // Position 5: (optional) scale
+                    //
+                    // Scale of the entity in the layer
+                    let entityScale: Vector3 = new Vector3(1, 1, 1)
+                    if (rawDataEntryArray.length >= 5) {
+                        if ((rawDataEntryArray[this._rawDatapoint['scale']].split(",").length == 3)) {
+                            entityScale = new Vector3(
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[0]),
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[1]),
+                                parseFloat(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[2])
+                            )
+                        }
+                        if (logging) log(rawDataEntryArray[this._rawDatapoint['scale']])
+                    }
+
+                    // Bring it all together in the layer's entity array
+                    this._entityPositionInLayer.push(
+                        {
+                            // Array index
+                            id: arrayId,
+                            // Unique id referencing the entity to place
+                            entityId: entityId,
+                            // Relative position of the entity in the layer's position
+                            position: entityCellCoordinateInLayer,
+                            // Relative rotation of the entity in in relation to the layer's absolute rotation
+                            rotation: entityRotation,
+                            // Relative scale
+                            scale: entityScale
+                        }
                     )
                 }
-
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // Position 2: entity reference id
-                //
-                // Entity id is the reference to the gltf model, sound or native DCL entity, defaults to a cube (id 0)
-                // of dimension 1 meter by 1 meter by 1 meter
-                let entityId: number = 0
-                if (parseInt(rawDataEntryArray[this._rawDatapoint['entityId']]) > 0) {
-                    entityId = parseInt(rawDataEntryArray[this._rawDatapoint['entityId']])
-                }
-
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // Position 3: (optional) elevation
-                //
-                // Elevation of the entity relative to the layer's elevation from ground in meters
-                if (rawDataEntryArray.length >= 3) {
-                    entityCellCoordinateInLayer.y = parseFloat(rawDataEntryArray[this._rawDatapoint['elevationInLayer']])
-                }
-
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // Position 4: (optional) rotation
-                //
-                // Check out if the raw data has 3 elements (Euler) or 4 elements (Quaternion) and do the
-                // necessary transformation from Euler to Quaternion.
-                // In case something else or no data has been provided, set rotation to (0, 0, 0, 0).
-                let entityRotation: Quaternion = new Quaternion(0, 0, 0, 0)
-                if (rawDataEntryArray.length >= 4) {
-                    if ((rawDataEntryArray[this._rawDatapoint['rotation']].split(",").length == 3)) {
-                        entityRotation = Quaternion.Euler(
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[0]),
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[1]),
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[2])
-                        )
-                    } else if ((rawDataEntryArray[this._rawDatapoint['rotation']].split(",").length == 4)) {
-                        entityRotation = new Quaternion(
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[0]),
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[1]),
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[2]),
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['rotation']].split(",")[3])
-                        )
-                    }
-                }
-
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // Position 5: (optional) scale
-                //
-                // Scale of the entity in the layer
-                let entityScale: Vector3 = new Vector3(1, 1, 1)
-                if (rawDataEntryArray.length >= 5) {
-                    if ((rawDataEntryArray[this._rawDatapoint['scale']].split(",").length == 3)) {
-                        entityScale = new Vector3(
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[0]),
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[1]),
-                            parseFloat(rawDataEntryArray[this._rawDatapoint['scale']].split(",")[2])
-                        )
-                    }
-                    if (logging) log(rawDataEntryArray[this._rawDatapoint['scale']])
-                }
-
-                // Bring it all together in the layer's entity array
-                this._entityPositionInLayer.push(
-                    {
-                        // Array index
-                        id: arrayId,
-                        // Unique id referencing the entity to place
-                        entityId: entityId,
-                        // Relative position of the entity in the layer's position
-                        position: entityCellCoordinateInLayer,
-                        // Relative rotation of the entity in in relation to the layer's absolute rotation
-                        rotation: entityRotation,
-                        // Relative scale
-                        scale: entityScale
-                    }
-                )
-
                 // Increment array index
                 arrayId++
             }
@@ -239,8 +249,8 @@ export class Layer {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export function placeLayer(layer: Layer){
-    if (logging) log("placeLayer() of '" + layer.name + "', containing " + layer.entityArray.length + " entities.")
+export function placeLayer(layer: Layer) {
+    if (logging) log("Placing layer '" + layer.name + "' with " + layer.entityArray.length + " entities.")
 
     // Source library models
     let entityRepository: EntityRepository = new EntityRepository()
@@ -249,13 +259,10 @@ export function placeLayer(layer: Layer){
     let layerParentEntity: Entity = new Entity()
     engine.addEntity(layerParentEntity)
 
-    // Create an array for the children
-    let layerChildArray: Entity[] = new Array()
-
     // Position all entities of a layer
     for (let entity of layer.entityArray) {
 
-        // Scale it
+        // Assemble entity properties
         let entityFileName: string = modelDirectory + entityRepository.modelFileName(entity.entityId)
         let entityPosition: Vector3 = new Vector3(
             entity.position.x * layer.cellSize + layer.cellSize/2 ,
@@ -264,18 +271,38 @@ export function placeLayer(layer: Layer){
         )
         let entityScale: Vector3 = entity.scale
         let entityRotation: Quaternion = entity.rotation
+        if (logging) log('Placed entity id ' + entity.entityId + ' (' + entityRepository.modelFileName(entity.entityId) + ') at position ' + entityPosition)
 
         // Create, position, scale and rotate layer child entities
-        const layerChildEntity: Entity = new Entity()
-        layerChildEntity.setParent(layerParentEntity)
-        layerChildEntity.addComponent(new GLTFShape(entityFileName))
-        layerChildEntity.addComponent(new Transform({
+        let childEntity: Entity = new Entity()
+        childEntity.setParent(layerParentEntity)
+        childEntity.addComponent(new GLTFShape(entityFileName))
+        childEntity.addComponent(new Transform({
             position: entityPosition,
             scale: entityScale,
             rotation: entityRotation
         }))
-        engine.addEntity(layerChildEntity)
 
+        if (layer.displayLabels) {
+            const childEntityLabel = new Entity()
+            const label = new TextShape(
+                childEntity.getComponent(GLTFShape).src + "\n" +
+                "Position: " + entityPosition + "\n" +
+                "Rotation: (" + entityRotation.eulerAngles.x + ", " + entityRotation.eulerAngles.y+ ", " + entityRotation.eulerAngles.z + ") or " + entityRotation +" \n" +
+                "Scale: " + entityScale
+                )
+            childEntityLabel.addComponent(label)
+            childEntityLabel.setParent(childEntity)
+            childEntityLabel.addComponent(new Transform({
+                position: new Vector3(0, entityPosition.y + 18, 0),
+                scale: new Vector3(1, 1, 1),
+                rotation: Quaternion.Euler(0, 0, 90)
+            }))
+            label.fontSize = 14
+            label.hTextAlign = "left"
+            label.opacity = 1
+            label.color = Color3.Black()
+        }
     }
 
     // Position, scale and rotate parent layer entity
@@ -284,6 +311,8 @@ export function placeLayer(layer: Layer){
         scale: layer.scale,
         rotation: layer.rotation
     }))
+
+    if (logging) log('Placed parent entity at position ' + layer.position)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
