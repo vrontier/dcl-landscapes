@@ -10,9 +10,22 @@ let msgERROR: string = "DCL Landscapes - ERROR: "
 let msgWARNING: string = "DCL Landscapes - WARNING: "
 let msgDEBUG: string = "DCL Landscapes - DEBUG: "
 
-// Model repository
-let modelDirectory: string = "models/"
-import {EntityRepository} from "./modelRepository"
+// Resource repository
+import {EntityRepository} from "./resourceRepository"
+// Interface for resource types
+interface ResourceType {
+    [key: string]: string
+}
+// Mapping resource types to directories
+let resourceDirectory: ResourceType = {}
+resourceDirectory['gltf'] = 'models/'
+resourceDirectory['audio'] = 'sounds/'
+
+// Black materials
+const shinyBlackMaterial = new Material()
+shinyBlackMaterial.albedoColor = new Color3(0,0,0)
+shinyBlackMaterial.metallic = 0.9
+shinyBlackMaterial.roughness = 0.1
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -152,7 +165,6 @@ export class Layer {
             return false
     }
 
-
     private parseRawData(toProcess: string) {
         let arrayId: number = 0
         let rawDataArray: string[] = toProcess.split("\n")
@@ -174,20 +186,26 @@ export class Layer {
                     // Relative elevation y is defaulted to 0 meaning 0m to add to the elevation of the layer
                     let entityCellCoordinateInLayer: Vector3 = new Vector3((this._cellSize / 2), 0, (this._cellSize / 2))
                     if (rawDataEntryArray[this._rawDatapoint['position']].split(",").length == 2) {
+                        let dimensionCellX: number = this._dimension.x
+                        let positionCellX: number = parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[0])
+                        let dimensionCellZ: number = this._dimension.z
+                        let positionCellZ: number = parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[1])
+
                         entityCellCoordinateInLayer = new Vector3(
                             // relative x coordinate of the cell
-                            parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[0]) * this._cellSize,
+                            (-1 * dimensionCellX * this._cellSize / 2) + (positionCellX * this._cellSize) + (this._cellSize / 2),
                             // relative y to layer elevation in meter is 0, may be set if elevation is present in raw data
                             0,
                             // relative z coordinate of the cell
-                            parseInt(rawDataEntryArray[this._rawDatapoint['position']].split(",")[1]) * this._cellSize
+                            (-1 * dimensionCellZ * this._cellSize / 2) + (positionCellZ * this._cellSize) + (this._cellSize / 2)
                         )
                     }
+
 
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////
                     // Position 2: entity reference id
                     //
-                    // Entity id is the reference to the gltf model, sound or native DCL entity, defaults to a cube (id 0)
+                    // Entity id is the reference to the gltf model, audio or native DCL entity, defaults to a cube (id 0)
                     // of dimension 1 meter by 1 meter by 1 meter
                     let entityId: number = 0
                     if (parseInt(rawDataEntryArray[this._rawDatapoint['entityId']]) > 0) {
@@ -201,11 +219,6 @@ export class Layer {
                     if (rawDataEntryArray.length >= 3) {
                         entityCellCoordinateInLayer.y = parseFloat(rawDataEntryArray[this._rawDatapoint['elevationInLayer']])
                     }
-
-                    // Offset for pivoting
-                    if (logging) log(msgDEBUG + 'Offset ' + entityCellCoordinateInLayer + ' by ' +
-                        entityCellCoordinateInLayer.subtract(this._pivotOffset))
-                    entityCellCoordinateInLayer = entityCellCoordinateInLayer.subtract(this._pivotOffset)
 
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////
                     // Position 4: (optional) rotation
@@ -264,7 +277,7 @@ export class Layer {
 
                     if (logging) log(msgDEBUG +
                         'Parsed data point: ' + entry + ' "' + rawDataArray[entry] + '" ' +
-                        'with entity id: ' + entityCellCoordinateInLayer +
+                        'with entity id: ' + entityId +
                         ', position: ' + entityCellCoordinateInLayer +
                         ', rotation Euler: ' + entityRotation.eulerAngles +
                         ', rotation Quaternion: ' + entityRotation +
@@ -298,36 +311,52 @@ export function placeLayer(layer: Layer) {
     // Position all entities of a layer
     for (let entity of layer.entityArray) {
 
-        // Assemble entity properties
-        let entityFileName: string = modelDirectory + entityRepository.modelFileName(entity.entityId)
-        // let entityPosition: Vector3 = new Vector3(
-        //     entity.position.x * layer.cellSize + layer.cellSize/2 ,
-        //     entity.position.y,
-        //     entity.position.z * layer.cellSize + layer.cellSize/2
-        // )
-        let entityScale: Vector3 = entity.scale
-        let entityRotation: Quaternion = entity.rotation
-
         // Create, position, scale and rotate layer child entities
         let childEntity: Entity = new Entity()
         childEntity.setParent(layerParentEntity)
-        childEntity.addComponent(new GLTFShape(entityFileName))
+
+        // Assign resource to entity
+        let resourceFileName: string = resourceDirectory[entityRepository.getType(entity.entityId)] + entityRepository.getFileName(entity.entityId)
+        if (entityRepository.getType(entity.entityId)=='gltf') {
+            childEntity.addComponent(new GLTFShape(resourceFileName))
+        }
+        if (entityRepository.getType(entity.entityId)=='audio') {
+            // Make audio visible via a BoxShape
+            childEntity.addComponent(new SphereShape())
+            childEntity.addComponent(shinyBlackMaterial)
+            const audioSource: AudioSource = new AudioSource(new AudioClip(resourceFileName))
+            childEntity.addComponent(audioSource)
+            // ToDo: parameterise volume
+            audioSource.volume = .25
+            // ToDo: parameterise looping
+            audioSource.loop = true
+            audioSource.playing = true
+            audioSource.playOnce()
+        }
         childEntity.addComponent(new Transform({
             position: entity.position,
-            scale: entityScale,
-            rotation: entityRotation
+            scale: entity.scale,
+            rotation: entity.rotation
         }))
 
         if (logging) log(msgDEBUG +
             'Added entity id: ' + entity.entityId +
-            ', model file: ' + entityRepository.modelFileName(entity.entityId) +
+            ', model file: ' + entityRepository.getFileName(entity.entityId) +
             ', position: ' + entity.position +
-            ', rotation Euler: ' + entityRotation.eulerAngles +
-            ', rotation Quaternion: ' + entityRotation +
-            ', scale: ' + entityScale
+            ', rotation Euler: ' + entity.rotation.eulerAngles +
+            ', rotation Quaternion: ' + entity.rotation +
+            ', scale: ' + entity.scale
         )
 
         if (layer.displayLabels) {
+
+            let labelTitle: string
+            if (entityRepository.getType(entity.entityId)=='gltf') {
+                labelTitle = childEntity.getComponent(GLTFShape).src
+            }
+            if (entityRepository.getType(entity.entityId)=='audio') {
+                labelTitle = childEntity.getComponent(AudioSource).audioClip.url
+            }
 
             const letLabelFloatAbove: number = layer.cellSize*2
             const letLabelRotateZ: number = 90
@@ -338,10 +367,10 @@ export function placeLayer(layer: Layer) {
             const childEntityLabel = new Entity()
             const label = new TextShape(
                 '#' + entity.entityId + ': ' +
-                childEntity.getComponent(GLTFShape).src + "\n" +
+                labelTitle + "\n" +
                 "Position: " + entity.position + "\n" +
-                "Rotation: " + entityRotation.eulerAngles + "\n" +
-                "Scale: " + entityScale
+                "Rotation: " + entity.rotation.eulerAngles + "\n" +
+                "Scale: " + entity.scale
                 )
             childEntityLabel.addComponent(label)
             childEntityLabel.setParent(childEntity)
@@ -382,7 +411,7 @@ export function placeLayer(layer: Layer) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // move and rotate entities randomly within given ranges
-export function landscapeLayer(layer: Layer, positionVariation: Vector3, rotationVariation: Vector3): Layer {
+export function randomizeLayer(layer: Layer, positionVariation: Vector3, rotationVariation: Vector3): Layer {
     let moveX: number = 0
     let moveY: number = 0 // will stay 0 as there is no point in changing the elevation
     let moveZ: number = 0
@@ -440,4 +469,24 @@ export function landscapeLayer(layer: Layer, positionVariation: Vector3, rotatio
         }
     }
     return layer
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// DCL LANDSCAPES floor placement
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export function placeFloor(position: Vector3, dimensions: Vector3, floorMaterial: Material) {
+
+    let floor = new Entity()
+    let floorPlane = new BoxShape()
+    floor.addComponent(floorPlane)
+    floor.addComponent(floorMaterial)
+    floor.addComponent(new Transform({
+        position: position,
+        scale: dimensions
+    }))
+
+    engine.addEntity(floor)
 }
