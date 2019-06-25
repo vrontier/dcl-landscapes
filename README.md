@@ -14,9 +14,9 @@ With DCL Landscapes, user can create
 * Animated layers based on rotation or an animation path
 * Audio landscapes
 
-The design philosophy behind  DCL Landscapes is to provide a modular building system which can be arranged, placed and animated in layers. Layers will typically hold the elements of a spefific theme or domain, e.g. models belonging to one building system or the terrain or a forest. 
+The design philosophy behind  DCL Landscapes is to provide a modular building system which can be arranged, placed and animated in layers. Layers will typically hold the elements of a specific theme or domain, e.g. models belonging to one building system or the terrain or a forest. Layers can be combined with each other without any constraints by DCL Landscapes.   
 
-You may try out the <a href="http://www.cryptoquest.io/dcl-landscapes/">web-based DCL Landscaper user interface</a> which will demo the generated scenes. Generated scenes can be downloaded and used in user-specific Decentraland projects by simply copying models and source code into your local DCL scene folder.
+You may try out the <a href="http://www.cryptoquest.io/dcl-landscapes/">web-based DCL Landscaper user interface</a> which will allow you to create, edit and place layers into DCL scenes. The resulting scene can be downloaded and used in user-specific Decentraland projects by simply copying models and source code into your local DCL scene folder.
 
 **Happy building and hacking!**<br/>
 Mike (Cryptovrontier) and Luke (ile)
