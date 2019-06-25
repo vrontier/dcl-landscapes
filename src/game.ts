@@ -1,6 +1,7 @@
 // *********************************************************************************************************************
 //
-// Cryptovrontier and Ile's DCL Landscapes Library
+//                                 Mike Quest (Cryptovrontier) & Luke Escobar (ile)
+//                            DCL LANDSCAPES - an open library for programmed landscapes
 //
 // *********************************************************************************************************************
 import {Layer, randomizeLayer, placeLayer, placeFloor} from "./dcl-landscapes/library"
@@ -48,10 +49,14 @@ export class layerRotate implements ISystem {
 
 engine.addSystem(new layerRotate())
 
-//////////////////
+// *********************************************************************************************************************
+//
+// Scene Floor
+//
+// *********************************************************************************************************************
 
 const floorMaterial = new Material()
-floorMaterial.albedoColor = new Color3(.32,.48,.46)
+floorMaterial.albedoColor = new Color3(.498,.78,.588)
 floorMaterial.metallic = 0.1
 floorMaterial.roughness = 0.1
 
