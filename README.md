@@ -9,9 +9,9 @@ The library contains architectural models in gltf format created by <a href="htt
 
 With DCL Landscapes, user can create 
 
-* Complex architectures based on its modular building blocks
+* Architectural scenes based on the library's prefabricated, modular building blocks or on user generated gltf models
 * Terrains and randomized model placements, e.g. for forest 
-* Animations based on rotation or an animation path
+* Animated layers based on rotation or an animation path
 * Audio landscapes
 
 The design philosophy behind  DCL Landscapes is to provide a modular building system which can be arranged, placed and animated in layers. Layers will typically hold the elements of a spefific theme or domain, e.g. models belonging to one building system or the terrain or a forest. 
