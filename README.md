@@ -25,8 +25,8 @@ The libray consists of the following elements:
 * Folder `sounds/` contains sample mp3 audio files from <a href="https://freesound.org">https://freesound.org</a> under creative commons license, please check file meta data for details  
 * Folder `src/`contains a sample `game.ts` using the DCL Landscapes library
 * Folder `src/dcl-landscapes/` contains the DCL Landscapes library files
- * File `library.ts` holds the functions provided by the DCL Landscapes library
- * File `resourceRepository.ts` holds the links to the individual resource files (gltf models and audio files) - please note that this this file needs to be edited to add user content in this early version of the library
+  * File `library.ts` holds the functions provided by the DCL Landscapes library
+  * File `resourceRepository.ts` holds the links to the individual resource files (gltf models and audio files) - please note that this this file needs to be edited to add user content in this early version of the library
 
 ## Library features
 * `Layer` class containing layer meta data (dimensions, cell size, position, scale etc.) and the resource/model placements (e.g. cell coordinate, resourced id; elevation in layer, rotation etc.)
