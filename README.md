@@ -19,7 +19,7 @@ The design philosophy behind  DCL Landscapes is to provide a modular building sy
 
 You may try out the <a href="http://www.cryptoquest.io/dcl-landscapes/">web-based DCL Landscaper user interface</a> which will allow you to create, edit and place layers into DCL scenes. The resulting scene can be downloaded and used in user-specific Decentraland projects by simply copying models and source code into your local DCL scene folder.
 
-## DCL Landscapes library structure
+## Library structure
 The libray consists of the following elements:
 * Folder `models/` contains gltf models provided with the library (Apache 2.0 license)
 * Folder `sounds/` contains sample mp3 audio files from <a href="https://freesound.org">https://freesound.org</a> under creative commons license, please check file meta data for details  
@@ -27,6 +27,14 @@ The libray consists of the following elements:
 * Folder `src/dcl-landscapes/` contains the DCL Landscapes library files
 ** File `library.ts` holds the functions provided by the DCL Landscapes library
 ** File `resourceRepository.ts` holds the links to the individual resource files (gltf models and audio files) - please note that this this file needs to be edited to add user content in this early version of the library
+
+## Library features
+* `Layer` class containing layer meta data (dimensions, cell size, position, scale etc.) and the resource/model placements (e.g. cell coordinate, resourced id; elevation in layer, rotation etc.)
+* `placeLayer` function for placing a layer and its components in scene
+* `randomizeLayer` function for randomizing position and rotation of an individual resource/model within the cells of a layer
+* `placeFloor` function for placing a simple floor tile on the ground of a scene
+
+In its current version, rotation and animation along a path are implemented only in the web-based DCL Landscaper. This function will be transfered to the library as well. The features however are encoded in the generated `game.ts` file and therefore available for users to include into their scenes.    
 
 **Happy building and hacking!**<br/>
 Mike (Cryptovrontier) and Luke (ile)
