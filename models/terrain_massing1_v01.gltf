@@ -5,7 +5,7 @@
             "componentType" : 5123,
             "count" : 252,
             "max" : [
-                228
+                229
             ],
             "min" : [
                 0
@@ -15,30 +15,30 @@
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 229,
+            "count" : 230,
             "max" : [
-                495.4851989746094,
+                457.4580993652344,
                 111.13169860839844,
                 -0.0
             ],
             "min" : [
-                -98.031494140625,
                 0.0,
-                -561.3043823242188
+                0.0,
+                -554.8615112304688
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 229,
+            "count" : 230,
             "max" : [
                 0.8920406699180603,
                 1.0,
                 0.6991086006164551
             ],
             "min" : [
-                -0.5226438045501709,
+                -0.6900596022605896,
                 -1.0,
                 -0.9747525453567505
             ],
@@ -49,7 +49,7 @@
             "componentType" : 5123,
             "count" : 252,
             "max" : [
-                228
+                229
             ],
             "min" : [
                 0
@@ -59,30 +59,30 @@
         {
             "bufferView" : 4,
             "componentType" : 5126,
-            "count" : 229,
+            "count" : 230,
             "max" : [
-                495.4851989746094,
+                457.4580993652344,
                 111.13169860839844,
                 -0.0
             ],
             "min" : [
-                -98.031494140625,
                 0.0,
-                -561.3043823242188
+                0.0,
+                -554.8615112304688
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 5,
             "componentType" : 5126,
-            "count" : 229,
+            "count" : 230,
             "max" : [
                 0.8920406699180603,
                 1.0,
                 0.6991086006164551
             ],
             "min" : [
-                -0.5226438045501709,
+                -0.6900596022605896,
                 -1.0,
                 -0.9747525453567505
             ],
@@ -102,45 +102,45 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 2748,
+            "byteLength" : 2760,
             "byteOffset" : 504,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 2748,
-            "byteOffset" : 3252,
+            "byteLength" : 2760,
+            "byteOffset" : 3264,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 504,
-            "byteOffset" : 6000,
+            "byteOffset" : 6024,
             "target" : 34963
         },
         {
             "buffer" : 0,
-            "byteLength" : 2748,
-            "byteOffset" : 6504,
+            "byteLength" : 2760,
+            "byteOffset" : 6528,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 2748,
-            "byteOffset" : 9252,
+            "byteLength" : 2760,
+            "byteOffset" : 9288,
             "target" : 34962
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 12000,
+            "byteLength" : 12048,
             "uri" : "terrain_massing1_v01.bin"
         }
     ],
     "materials" : [
         {
             "alphaMode" : "BLEND",
-            "name" : "edge_color000255",
+            "name" : "edge_color129136161255",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.6400000190734865,
@@ -152,25 +152,12 @@
             }
         },
         {
-            "alphaMode" : "BLEND",
-            "name" : "edge_color124194147255",
+            "name" : "material_2",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
-                    0.6400000190734865,
-                    0.6400000190734865,
-                    0.6400000190734865,
-                    1.0
-                ],
-                "metallicFactor" : 0.0
-            }
-        },
-        {
-            "name" : "material_1",
-            "pbrMetallicRoughness" : {
-                "baseColorFactor" : [
-                    0.48627448806575657,
-                    0.7607843512413552,
-                    0.5764706220696958,
+                    0.50588236608926,
+                    0.533333309491475,
+                    0.6313725088741258,
                     1.0
                 ],
                 "metallicFactor" : 0.0
@@ -179,7 +166,7 @@
     ],
     "meshes" : [
         {
-            "name" : "ID4.003",
+            "name" : "ID15.001",
             "primitives" : [
                 {
                     "attributes" : {
@@ -187,12 +174,12 @@
                         "POSITION" : 1
                     },
                     "indices" : 0,
-                    "material" : 2
+                    "material" : 1
                 }
             ]
         },
         {
-            "name" : "ID4.002",
+            "name" : "ID15",
             "primitives" : [
                 {
                     "attributes" : {
@@ -200,7 +187,7 @@
                         "POSITION" : 4
                     },
                     "indices" : 3,
-                    "material" : 2
+                    "material" : 1
                 }
             ]
         }
@@ -208,7 +195,7 @@
     "nodes" : [
         {
             "mesh" : 1,
-            "name" : "massing 1",
+            "name" : "massing",
             "translation" : [
                 -204.4801788330078,
                 -1.1372820003449635e-13,
@@ -217,7 +204,7 @@
         },
         {
             "mesh" : 0,
-            "name" : "massing 1_collider",
+            "name" : "massing_collider",
             "translation" : [
                 -204.4801788330078,
                 -1.1372820003449635e-13,
