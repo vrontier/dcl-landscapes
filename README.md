@@ -3,7 +3,7 @@ Decentraland Hackathon June 2019
 
 DCL Landscapes is an an open source Library for programming virtual reality landscapes in <a href="http://www.decentraland.org">Decentraland</a> using its <a href="https://github.com/decentraland/ecs-reference">ECS API</a>. 
 
-The library contains architectural models in gltf format created by Luke Escobar (ile#9466 on Discord) and placement and landscaping functionality in Typescript created by Mike Quest (Cyptovrontier#8787 in Discord).
+The library contains architectural models in gltf format created by <a href="https://github.com/iillee">Luke Escobar</a< (ile#9466 on Discord) and placement and landscaping functionality in Typescript created by <a href="https://github.com/vrontier">Mike Quest</a> (Cyptovrontier#8787 in Discord).
 
 <a href="http://www.cryptoquest.io:8090">Demoland</a>, our Hackathon contribution scene was created using DCL Landscapes.
 
