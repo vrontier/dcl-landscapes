@@ -50,9 +50,9 @@ engine.addSystem(new layerRotate())
 
 //////////////////
 
-// const floorMaterial = new Material()
-// floorMaterial.albedoColor = new Color3(.32,.48,.46)
-// floorMaterial.metallic = 0.1
-// floorMaterial.roughness = 0.1
-//
-// placeFloor(new Vector3(8*16,-0.09,8*16), new Vector3(16*16, 0.01, 16*16), floorMaterial)
+const floorMaterial = new Material()
+floorMaterial.albedoColor = new Color3(.32,.48,.46)
+floorMaterial.metallic = 0.1
+floorMaterial.roughness = 0.1
+
+placeFloor(new Vector3(8*16,-0.09,8*16), new Vector3(16*16, 0.01, 16*16), floorMaterial)
