@@ -18,6 +18,6 @@ The design philosophy behind  DCL Landscapes is to provide a modular building sy
 
 You may try out the <a href="http://www.cryptoquest.io/dcl-landscapes/">web-based DCL Landscaper user interface</a> which will demo the generated scenes. Generated scenes can be downloaded and used in user-specific Decentraland projects by simply copying models and source code into your local DCL scene folder.
 
-Happy building and hacking,
+Happy building and hacking!
 
-Mike (Cryptovrontier) and Luke (ile)
+**Mike (Cryptovrontier) and Luke (ile)**
