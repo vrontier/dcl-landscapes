@@ -427,32 +427,29 @@ export function randomizeLayer(layer: Layer, positionVariation: Vector3, rotatio
         if (logging) log(msgDEBUG+ 'Landscaping layer with position variation: ' + positionVariation + ' and rotation variation: ' + rotationVariation)
         for (let entity of layer.entityArray) {
 
-            let positionChange: Vector3 = entity.position
-            let rotationChange: Quaternion = entity.rotation
+            let positionChange: Vector3 = new Vector3()
+            let rotationChange: Quaternion = new Quaternion(0,0,0,0)
 
             // Let the magic random happen
             if (positionVariation.x > 0) {
                 moveX = positionVariation.x * (Math.random() * ((layer.cellSize / 2) - 0) + 0)
-                positionChange.x = entity.position.x + moveX
             }
             if (positionVariation.z > 0) {
                 moveZ = positionVariation.z * (Math.random() * ((layer.cellSize / 2) - 0) + 0)
-                positionChange.y = entity.position.y + moveY
             }
             if (rotationVariation.x > 0) {
                 turnX = rotationVariation.x * (Math.random() * (360 - 0) + 0)
-                rotationChange.eulerAngles.x = entity.rotation.eulerAngles.x + turnX
             }
             if (rotationVariation.y > 0) {
                 turnY = rotationVariation.y * (Math.random() * (360 - 0) + 0)
-                rotationChange.eulerAngles.y = entity.rotation.eulerAngles.y + turnY
             }
             if (rotationVariation.z > 0) {
                 turnZ = rotationVariation.z * (Math.random() * (360 - 0) + 0)
-                rotationChange.eulerAngles.z = entity.rotation.eulerAngles.z + turnZ
             }
 
             // New position and rotation
+            positionChange = new Vector3(entity.position.x + moveX, entity.position.y, positionChange.z = entity.position.z + moveZ)
+            rotationChange = Quaternion.Euler((entity.rotation.eulerAngles.x + turnX), (entity.rotation.eulerAngles.y + turnY), (entity.rotation.eulerAngles.z + turnZ))
             if (logging) {
                 log(msgDEBUG +
                     "Entity id: " + entity.id +
