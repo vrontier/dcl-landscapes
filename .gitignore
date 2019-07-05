@@ -1,6 +1,7 @@
 /.idea
 /bin
 /node_modules
+!/audio/*
 !/src/*
 !/src/dcl-landscapes/*
 .dclignore
