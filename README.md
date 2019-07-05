@@ -20,7 +20,7 @@ The design philosophy behind  DCL Landscapes is to provide a modular building sy
 ## Library structure
 The libray consists of the following elements:
 * Folder `models/` contains gltf models provided with the library (Apache 2.0 license)
-* Folder `sounds/` contains sample mp3 audio files from <a href="https://freesound.org">https://freesound.org</a> under creative commons license, please check file meta data for details  
+* Folder `audio/` contains audio  
 * Folder `src/`contains a sample `game.ts` using the DCL Landscapes library
 * Folder `src/dcl-landscapes/` contains the DCL Landscapes library files
   * File `library.ts` holds the functions provided by the DCL Landscapes library
