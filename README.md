@@ -36,10 +36,6 @@ The libray consists of the following elements:
 
 In its current version, rotation and animation along a path are implemented only in the web-based DCL Landscaper. This function will be transfered to the library as well. The features however are encoded in the generated `game.ts` file and therefore available for users to include into their scenes.
 
-## Links
-* <a href="http://www.cryptoquest.io:8090">Demoland</a> Hackathon contribution scene
-* <a href="http://www.cryptoquest.io/dcl-landscapes/">DCL Landscaper</a>, a web-based user interface for the library
-
 ## Outlook
 We have had great fun imagining and creating this very first version of the DCL Landscapes library. There are a number of functionalities we want to realise in its next version like having additional models and additional resource types to place (NFTs, graphics and video at some time), we also want to extend the existing functions to address additional properties like randomize the scale of entities. And last but not least, we want to replace the makeshift DCL Landscaper with a more user friendly, graphical tool that can be run on the local scene.   
 
