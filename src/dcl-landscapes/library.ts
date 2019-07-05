@@ -20,7 +20,7 @@ interface ResourceType {
 // Mapping resource types to directories
 let resourceDirectory: ResourceType = {}
 resourceDirectory['gltf'] = 'models/'
-resourceDirectory['audio'] = 'sounds/'
+resourceDirectory['audio'] = 'audio/'
 
 // Black materials
 const shinyBlackMaterial = new Material()
