@@ -21,10 +21,10 @@ The design philosophy behind  DCL Landscapes is to provide a modular building sy
 
 ## Library structure
 The libray consists of the following elements:
-* Folder `docs/` contains documentation
-* Folder `models/` contains gltf models provided with the library (Apache 2.0 license)
-* Folder `src/`contains a sample `game.ts` using the DCL Landscapes library
-* Folder `src/dcl-landscapes/` contains the DCL Landscapes library files
+* Folder <a href="https://github.com/vrontier/dcl-landscape-designer/docs/">`docs/`</a> contains documentation
+* Folder <a href="https://github.com/vrontier/dcl-landscape-designer/models/">`models/`</a> contains gltf models provided with the library (Apache 2.0 license)
+* Folder <a href="https://github.com/vrontier/dcl-landscape-designer/src/">`src/`</a> contains a sample `game.ts` using the DCL Landscapes library
+* Folder <a href="https://github.com/vrontier/dcl-landscape-designer/src/dcl-landscapes/">`src/dcl-landscapes/`</a> contains the DCL Landscapes library files
   * File `library.ts` holds the functions provided by the DCL Landscapes library
   * File `resourceRepository.ts` holds the links to the individual resource files (gltf models and audio files) - please note that this this file needs to be edited to add user content in this early version of the library
 
