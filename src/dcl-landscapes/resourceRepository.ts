@@ -52,10 +52,7 @@ export class EntityRepository {
     { id: 67, type: 'gltf', fileName: 'art_text-cryptovrontier_v01.gltf' },
     { id: 71, type: 'gltf', fileName: 'building_townhouse-deathstar_v01.gltf' },
     { id: 73, type: 'gltf', fileName: 'nature_tree-basic_v01.gltf' },
-    { id: 74, type: 'gltf', fileName: 'nature_tree-abstract_v01.gltf' },
-    { id: 75, type: 'audio', fileName: '231657__david-werecat__low-hum.mp3' },
-    { id: 76, type: 'audio', fileName: '254131__shiversmedia__ambient-portal-hum-once-upon-a-time-in-the-1970s.mp3' },
-    { id: 77, type: 'audio', fileName: '475167__tim-kahn__unitilnd.mp3' }
+    { id: 74, type: 'gltf', fileName: 'nature_tree-abstract_v01.gltf' }
     ]
 
     public getFileName(id: number): string {
