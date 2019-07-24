@@ -16,12 +16,6 @@ let resourceDirectory: ResourceType = {}
 resourceDirectory['gltf'] = 'models/'
 resourceDirectory['audio'] = 'audio/'
 
-// Black materials
-const shinyBlackMaterial = new Material()
-shinyBlackMaterial.albedoColor = new Color3(0,0,0)
-shinyBlackMaterial.metallic = 0.9
-shinyBlackMaterial.roughness = 0.1
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //                                      DCL LANDSCAPES resource repository
@@ -362,6 +356,13 @@ export class Layer {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export function placeLayer(layer: Layer, entityRepository: EntityRepository) {
+
+    // Black materials
+    const shinyBlackMaterial = new Material()
+    shinyBlackMaterial.albedoColor = new Color3(0,0,0)
+    shinyBlackMaterial.metallic = 0.9
+    shinyBlackMaterial.roughness = 0.1
+
     if (logging) log(msgDEBUG + "Placing layer '" + layer.name + "' with " + layer.entityArray.length + " entitie(s)")
 
     // Create parent layer entity and add it to the system

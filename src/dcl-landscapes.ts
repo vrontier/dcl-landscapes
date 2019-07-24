@@ -4,13 +4,13 @@
 //                            DCL LANDSCAPES - an open library for programmed landscapes
 //
 // *********************************************************************************************************************
-import {EntityRepository, EntityRepositoryItems, Layer, randomizeLayer, placeLayer, placeFloor} from "./dcl-landscapes/library"
+import * as dclLandscapes from "./dcl-landscapes/library"
 
 // Variable taking positioning raw data
 let layerRawData: string = ""
 
 // Create model repository
-let entityRepositoryItems: EntityRepositoryItems = [
+let entityRepositoryItems: dclLandscapes.EntityRepositoryItems = [
     { id: 2, type: 'gltf', fileName: 'building_bridge-length_v01.gltf' },
     { id: 3, type: 'gltf', fileName: 'building_townhouse-base_v01.gltf' },
     { id: 5, type: 'gltf', fileName: 'building_townhouse-coffin_v01.gltf' },
@@ -49,7 +49,7 @@ let entityRepositoryItems: EntityRepositoryItems = [
     { id: 73, type: 'gltf', fileName: 'nature_tree-basic_v01.gltf' },
     { id: 74, type: 'gltf', fileName: 'nature_tree-abstract_v01.gltf' }
 ]
-let entityRepository: EntityRepository = new EntityRepository(entityRepositoryItems)
+let entityRepository: dclLandscapes.EntityRepository = new dclLandscapes.EntityRepository(entityRepositoryItems)
 
 // *********************************************************************************************************************
 //
@@ -63,7 +63,7 @@ layerRawData =
     + "1,0 43\n"
     + "1,1 43"
 
-let modularLandscape1: Layer = new Layer(
+let modularLandscape1: dclLandscapes.Layer = new dclLandscapes.Layer(
     "Rotation Test",
     new Vector3(2,0,2),
     layerRawData,
@@ -74,7 +74,12 @@ let modularLandscape1: Layer = new Layer(
     true
 )
 
-placeLayer(randomizeLayer(modularLandscape1, new Vector3(0,0,0), new Vector3(0,0,0)), entityRepository)
+dclLandscapes.placeLayer(dclLandscapes.randomizeLayer(
+    modularLandscape1,
+    new Vector3(0,0,0),
+    new Vector3(0,0,0)),
+    entityRepository
+)
 
 // *********************************************************************************************************************
 //
@@ -102,4 +107,4 @@ floorMaterial.albedoColor = new Color3(.498,.78,.588)
 floorMaterial.metallic = 0.1
 floorMaterial.roughness = 0.1
 
-placeFloor(new Vector3(8*16,-0.09,8*16), new Vector3(16*16, 0.01, 16*16), floorMaterial)
+dclLandscapes.placeFloor(new Vector3(8*16,-0.09,8*16), new Vector3(16*16, 0.01, 16*16), floorMaterial)

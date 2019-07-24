@@ -22,7 +22,7 @@ The design philosophy behind  DCL Landscapes is to provide a modular building sy
 The libray consists of the following elements:
 * Folder <a href="https://github.com/vrontier/dcl-landscape-designer/tree/master/docs/">`docs/`</a> contains documentation
 * Folder <a href="https://github.com/vrontier/dcl-landscape-designer/tree/master/models/">`models/`</a> contains gltf models provided with the library (Apache 2.0 license)
-* Folder <a href="https://github.com/vrontier/dcl-landscape-designer/tree/master/src/">`src/`</a> contains a sample `game.ts` using the DCL Landscapes library
+* Folder <a href="https://github.com/vrontier/dcl-landscape-designer/tree/master/src/">`src/`</a> contains a sample `dcl-landscapes.ts` using the DCL Landscapes library
 * Folder <a href="https://github.com/vrontier/dcl-landscape-designer/tree/master/src/dcl-landscapes/">`src/dcl-landscapes/`</a> contains the DCL Landscapes library files
   * File `library.ts` holds the functions provided by the DCL Landscapes library
   * File `resourceRepository.ts` holds the links to the individual resource files (gltf models) - please note that this this file needs to be edited to add user content in this early version of the library
@@ -33,7 +33,7 @@ The libray consists of the following elements:
 * `randomizeLayer` function for randomizing position and rotation of an individual resource/model within the cells of a layer
 * `placeFloor` function for placing a simple floor tile on the ground of a scene
 
-In its current version, rotation and animation along a path are implemented only in the web-based DCL Landscaper. This function will be transfered to the library as well. The features however are encoded in the generated `game.ts` file and therefore available for users to include into their scenes.
+In its current version, rotation and animation along a path are implemented only in the web-based DCL Landscaper. This function will be transfered to the library as well. The features however are encoded in the generated `dcl-landscapes.ts` file and therefore available for users to include into their scenes.
 
 ## Outlook
 We have had great fun imagining and creating this very first version of the DCL Landscapes library. There are a number of functionalities we want to realise in its next version like having additional models and additional resource types to place (NFTs, graphics and video at some time), we also want to extend the existing functions to address additional properties like randomize the scale of entities. And last but not least, we want to replace the makeshift DCL Landscaper with a more user friendly, graphical tool that can be run on the local scene.   

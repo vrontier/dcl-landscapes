@@ -2,7 +2,7 @@
 /bin
 /node_modules
 !/audio/*
-!/src/*
+!/src/dcl-landscapes.ts
 !/src/dcl-landscapes/*
 .dclignore
 Dockerfile
