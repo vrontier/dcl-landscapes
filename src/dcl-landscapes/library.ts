@@ -11,12 +11,6 @@ let msgERROR: string = "DCL Landscapes - ERROR: "
 let msgWARNING: string = "DCL Landscapes - WARNING: "
 let msgDEBUG: string = "DCL Landscapes - DEBUG: "
 
-// Resource repository
-import {EntityRepository} from "./resourceRepository"
-// Interface for resource types
-interface ResourceType {
-    [key: string]: string
-}
 // Mapping resource types to directories
 let resourceDirectory: ResourceType = {}
 resourceDirectory['gltf'] = 'models/'
@@ -27,6 +21,75 @@ const shinyBlackMaterial = new Material()
 shinyBlackMaterial.albedoColor = new Color3(0,0,0)
 shinyBlackMaterial.metallic = 0.9
 shinyBlackMaterial.roughness = 0.1
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//                                      DCL LANDSCAPES resource repository
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Model repository item
+export interface EntityRepositoryItem {
+    id: number
+    type: string
+    fileName: string
+}
+export interface EntityRepositoryItems extends Array<EntityRepositoryItem>{}
+
+// Repository class
+export class EntityRepository {
+    private _maxId: number
+    private _dataSet: EntityRepositoryItems
+
+    constructor(entityRepositoryItems?: EntityRepositoryItems) {
+        this._maxId = 0
+        this._dataSet = []
+        if (entityRepositoryItems) {
+            this._dataSet = entityRepositoryItems
+            for (let entry in this._dataSet) {
+                if (this._dataSet[entry].id > this._maxId) this._maxId = this._dataSet[entry].id
+            }
+        }
+        if (logging) {
+            log(msgDEBUG + 'entityRepository:\n_maxId=' + this._maxId)
+            log(msgDEBUG + '_dataSet:')
+            for (let entry in this._dataSet) {
+                log (msgDEBUG + this._dataSet[entry].id + ', ' + this._dataSet[entry].fileName + ', ' + this._dataSet[entry].type)
+            }
+        }
+    }
+
+    public add(fileName: string, type: string, referenceId?: number): number {
+        let id: number = 0
+        if (referenceId) id = referenceId
+        if (id == 0) id = this._maxId++
+        let newItem: EntityRepositoryItem
+        newItem.id = id
+        newItem.fileName = fileName
+        newItem.type = type
+        this._dataSet.push(newItem)
+        return id
+    }
+
+    public getFileName(id: number): string {
+        for (let entry of this._dataSet) {
+            if (entry.id == id)
+                return entry.fileName
+        }
+    }
+
+    public getType(id: number): string {
+        for (let entry of this._dataSet) {
+            if (entry.id == id)
+                return entry.type
+        }
+    }
+}
+
+// Interface for resource types
+interface ResourceType {
+    [key: string]: string
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -298,11 +361,8 @@ export class Layer {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export function placeLayer(layer: Layer) {
+export function placeLayer(layer: Layer, entityRepository: EntityRepository) {
     if (logging) log(msgDEBUG + "Placing layer '" + layer.name + "' with " + layer.entityArray.length + " entitie(s)")
-
-    // Source library models
-    let entityRepository: EntityRepository = new EntityRepository()
 
     // Create parent layer entity and add it to the system
     let layerParentEntity: Entity = new Entity()
