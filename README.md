@@ -1,6 +1,6 @@
 # DCL Landscapes
 
-![Cryptovrontier and Ile's DCL Landscapes](https://github.com/vrontier/assets/blob/master/DCL%20Landscapes.jpg)
+![Cryptovrontier and Ile's DCL Landscapes](https://github.com/vrontier/assets/blob/master/dcl-landscapes/dcl-landscapes-demoland.jpg)
 
 ## Description
 DCL Landscapes is an an open source Library for programming virtual reality landscapes in <a href="http://www.decentraland.org">Decentraland</a> using its <a href="https://github.com/decentraland/ecs-reference">ECS API</a>. 
@@ -15,7 +15,6 @@ With DCL Landscapes, user can create
 * Architectural scenes based on the library's prefabricated, modular building blocks or on user generated gltf models
 * Terrains and randomized model placements, e.g. for forest 
 * Animated layers based on rotation or an animation path
-* Audio landscapes
 
 The design philosophy behind  DCL Landscapes is to provide a modular building system which can be arranged, placed and animated in layers. Layers will typically hold the elements of a specific theme or domain, e.g. models belonging to one building system or the terrain or a forest. Layers can be combined with each other without any constraints by DCL Landscapes.   
 
@@ -26,7 +25,7 @@ The libray consists of the following elements:
 * Folder <a href="https://github.com/vrontier/dcl-landscape-designer/tree/master/src/">`src/`</a> contains a sample `game.ts` using the DCL Landscapes library
 * Folder <a href="https://github.com/vrontier/dcl-landscape-designer/tree/master/src/dcl-landscapes/">`src/dcl-landscapes/`</a> contains the DCL Landscapes library files
   * File `library.ts` holds the functions provided by the DCL Landscapes library
-  * File `resourceRepository.ts` holds the links to the individual resource files (gltf models and audio files) - please note that this this file needs to be edited to add user content in this early version of the library
+  * File `resourceRepository.ts` holds the links to the individual resource files (gltf models) - please note that this this file needs to be edited to add user content in this early version of the library
 
 ## Library features
 * `Layer` class containing layer meta data (dimensions, cell size, position, scale etc.) and the resource/model placements (e.g. cell coordinate, resourced id; elevation in layer, rotation etc.)
