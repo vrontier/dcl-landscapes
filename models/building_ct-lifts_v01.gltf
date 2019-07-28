@@ -1,0 +1,412 @@
+{
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5123,
+            "count" : 18900,
+            "max" : [
+                18899
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 18900,
+            "max" : [
+                2687.422119140625,
+                1.5900544769742453e-10,
+                2096.87109375
+            ],
+            "min" : [
+                -330.137939453125,
+                8.584263161415251e-11,
+                -3440.3740234375
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 18900,
+            "max" : [
+                2.579439439820419e-11,
+                -0.9999999403953552,
+                2.621955604020787e-11
+            ],
+            "min" : [
+                -2.465956605579578e-11,
+                -1.0,
+                -2.4224608430323258e-11
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 23220,
+            "max" : [
+                22092
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 22093,
+            "max" : [
+                2716.53564453125,
+                9.842519760131836,
+                2125.98486328125
+            ],
+            "min" : [
+                -354.330810546875,
+                -4.865465688171139e-24,
+                -3464.56689453125
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 22093,
+            "max" : [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min" : [
+                -1.0,
+                -1.0,
+                -1.0
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5123,
+            "count" : 18900,
+            "max" : [
+                18899
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5126,
+            "count" : 18900,
+            "max" : [
+                2687.422119140625,
+                1.5900544769742453e-10,
+                2096.87109375
+            ],
+            "min" : [
+                -330.137939453125,
+                8.584263161415251e-11,
+                -3440.3740234375
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 18900,
+            "max" : [
+                2.579439439820419e-11,
+                -0.9999999403953552,
+                2.621955604020787e-11
+            ],
+            "min" : [
+                -2.465956605579578e-11,
+                -1.0,
+                -2.4224608430323258e-11
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5123,
+            "count" : 23220,
+            "max" : [
+                22092
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 22093,
+            "max" : [
+                2716.53564453125,
+                9.842519760131836,
+                2125.98486328125
+            ],
+            "min" : [
+                -354.330810546875,
+                -4.865465688171139e-24,
+                -3464.56689453125
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5126,
+            "count" : 22093,
+            "max" : [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min" : [
+                -1.0,
+                -1.0,
+                -1.0
+            ],
+            "type" : "VEC3"
+        }
+    ],
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter",
+        "version" : "2.0"
+    },
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 37800,
+            "byteOffset" : 0,
+            "target" : 34963
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 226800,
+            "byteOffset" : 37800,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 226800,
+            "byteOffset" : 264600,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 46440,
+            "byteOffset" : 491400,
+            "target" : 34963
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 265116,
+            "byteOffset" : 537840,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 265116,
+            "byteOffset" : 802956,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 37800,
+            "byteOffset" : 1068072,
+            "target" : 34963
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 226800,
+            "byteOffset" : 1105872,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 226800,
+            "byteOffset" : 1332672,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 46440,
+            "byteOffset" : 1559472,
+            "target" : 34963
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 265116,
+            "byteOffset" : 1605912,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 265116,
+            "byteOffset" : 1871028,
+            "target" : 34962
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 2136144,
+            "uri" : "building_ct-lifts_v01.bin"
+        }
+    ],
+    "materials" : [
+        {
+            "alphaMode" : "BLEND",
+            "name" : "edge_color000255.011",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.6400000190734865,
+                    0.6400000190734865,
+                    0.6400000190734865,
+                    1.0
+                ],
+                "metallicFactor" : 0.0
+            }
+        },
+        {
+            "alphaMode" : "BLEND",
+            "name" : "edge_color8087112255.008",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.6400000190734865,
+                    0.6400000190734865,
+                    0.6400000190734865,
+                    1.0
+                ],
+                "metallicFactor" : 0.0
+            }
+        },
+        {
+            "name" : "material_16.005",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    1.0,
+                    0.24705880880355835,
+                    0.2588235139846802,
+                    1.0
+                ],
+                "metallicFactor" : 0.0
+            }
+        },
+        {
+            "name" : "material_4.008",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.3137255000133141,
+                    0.3411765149411039,
+                    0.4392157143237547,
+                    1.0
+                ],
+                "metallicFactor" : 0.0
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "ID5",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 2,
+                        "POSITION" : 1
+                    },
+                    "indices" : 0,
+                    "material" : 2
+                },
+                {
+                    "attributes" : {
+                        "NORMAL" : 5,
+                        "POSITION" : 4
+                    },
+                    "indices" : 3,
+                    "material" : 3
+                }
+            ]
+        },
+        {
+            "name" : "ID5.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 8,
+                        "POSITION" : 7
+                    },
+                    "indices" : 6,
+                    "material" : 2
+                },
+                {
+                    "attributes" : {
+                        "NORMAL" : 11,
+                        "POSITION" : 10
+                    },
+                    "indices" : 9,
+                    "material" : 3
+                }
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "children" : [
+                1,
+                2
+            ],
+            "name" : "group_0",
+            "translation" : [
+                -1535.43310546875,
+                9.842519760131836,
+                1299.2120361328125
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "lifts",
+            "translation" : [
+                354.3306884765625,
+                0.0,
+                -629.921142578125
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "lifts_collider",
+            "translation" : [
+                354.3306884765625,
+                0.0,
+                -629.921142578125
+            ]
+        },
+        {
+            "children" : [
+                0
+            ],
+            "name" : "SketchUp",
+            "scale" : [
+                0.02539999969303608,
+                0.02539999969303608,
+                0.02539999969303608
+            ]
+        }
+    ],
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                3
+            ]
+        }
+    ]
+}

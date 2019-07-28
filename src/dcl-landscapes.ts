@@ -74,12 +74,12 @@ let modularLandscape1: dclLandscapes.Layer = new dclLandscapes.Layer(
     true
 )
 
-dclLandscapes.placeLayer(dclLandscapes.randomizeLayer(
-    modularLandscape1,
-    new Vector3(0,0,0),
-    new Vector3(0,0,0)),
-    entityRepository
-)
+// dclLandscapes.placeLayer(dclLandscapes.randomizeLayer(
+//     modularLandscape1,
+//     new Vector3(0,0,0),
+//     new Vector3(0,0,0)),
+//     entityRepository
+// )
 
 // *********************************************************************************************************************
 //
@@ -94,7 +94,7 @@ export class layerRotate implements ISystem {
     }
 }
 
-engine.addSystem(new layerRotate())
+// engine.addSystem(new layerRotate())
 
 // *********************************************************************************************************************
 //
@@ -107,4 +107,4 @@ floorMaterial.albedoColor = new Color3(.498,.78,.588)
 floorMaterial.metallic = 0.1
 floorMaterial.roughness = 0.1
 
-dclLandscapes.placeFloor(new Vector3(8*16,-0.09,8*16), new Vector3(16*16, 0.01, 16*16), floorMaterial)
+// dclLandscapes.placeFloor(new Vector3(8*16,-0.09,8*16), new Vector3(16*16, 0.01, 16*16), floorMaterial)
